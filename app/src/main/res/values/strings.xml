@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Reminder</string>
     <string name="add_note">add note</string>
+    <string name="date">Date</string>
+    <string name="friend_name">Friend Name</string>
 </resources>
