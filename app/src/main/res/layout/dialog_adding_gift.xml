@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/friend_name"
-        app:layout_constraintBottom_toTopOf="@id/dateInputLayout"
+        app:layout_constraintBottom_toTopOf="@id/dateTextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,23 +24,17 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/dateInputLayout"
+    <TextView
+        android:id="@+id/dateTextButton"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/friendNameInputLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:text="@string/choose_date"
+        app:layout_constraintTop_toBottomOf="@id/friendNameInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
