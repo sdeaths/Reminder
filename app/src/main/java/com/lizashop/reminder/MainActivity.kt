@@ -1,12 +1,13 @@
 package com.lizashop.reminder
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.lizashop.reminder.databinding.ActivityMainBinding
 import com.lizashop.reminder.databinding.DialogAddingGiftBinding
+import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,25 +31,41 @@ class MainActivity : AppCompatActivity() {
             MaterialAlertDialogBuilder(this@MainActivity)
                 .setTitle("Adding Birthday")
                 .setView(dialogBinding.root)
-                .setPositiveButton("Add Birthday") { _, _ ->
-                    birthdayList.add(
-                        BirthdayItem(
-                            id = id++,
-                            friendName = dialogBinding.friendNameEditText.text.toString(),
-                            date = dialogBinding.dateEditText.text.toString()
+                .setPositiveButton("Add Birthday") { dialog, _ ->
+                    if (isDateValid(dialogBinding.dateEditText.text.toString())) {
+                        birthdayList.add(
+                            BirthdayItem(
+                                id = id++,
+                                friendName = dialogBinding.friendNameEditText.text.toString(),
+                                date = dialogBinding.dateEditText.text.toString()
+                            )
                         )
-                    )
 
-                    Snackbar.make(
-                        it,
-                        "Birthday successfully added",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                        Snackbar.make(
+                            it,
+                            "Birthday successfully added",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Snackbar.make(
+                            it,
+                            "Please input correct date",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        dialog.dismiss()
+                    }
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
         }
+    }
+
+    fun isDateValid(dateString: String): Boolean {
+        val regex = """^\d{2}-\d{2}-\d{4}$"""
+        val pattern = Pattern.compile(regex)
+        val matcher = pattern.matcher(dateString)
+        return matcher.matches()
     }
 }
