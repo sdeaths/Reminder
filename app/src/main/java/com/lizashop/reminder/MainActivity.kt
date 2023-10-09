@@ -1,5 +1,6 @@
 package com.lizashop.reminder
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,16 +41,16 @@ class MainActivity : AppCompatActivity() {
                                 date = dialogBinding.dateEditText.text.toString()
                             )
                         )
-
                         Snackbar.make(
                             it,
                             "Birthday successfully added",
                             Snackbar.LENGTH_LONG
                         ).show()
+                        dialog.dismiss()
                     } else {
                         Snackbar.make(
                             it,
-                            "Please input correct date",
+                            "Please choose the date",
                             Snackbar.LENGTH_LONG
                         ).show()
                         dialog.dismiss()

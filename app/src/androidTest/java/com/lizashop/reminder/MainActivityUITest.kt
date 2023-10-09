@@ -29,7 +29,7 @@ class MainActivityUITest {
         Espresso.onView(ViewMatchers.withId(R.id.friendNameEditText))
             .perform(ViewActions.typeText("John Doe"))
         Espresso.onView(ViewMatchers.withId(R.id.dateEditText))
-            .perform(ViewActions.typeText("10-10-2022"))
+            .perform(ViewActions.typeText("10-02-2023"))
 
         // Confirm the dialog
         Espresso.onView(ViewMatchers.withText("Add Birthday"))
@@ -50,15 +50,14 @@ class MainActivityUITest {
         Espresso.onView(ViewMatchers.withId(R.id.friendNameEditText))
             .perform(ViewActions.typeText("John Doe"))
         Espresso.onView(ViewMatchers.withId(R.id.dateEditText))
-            .perform(ViewActions.typeText("hehehehe")) // Invalid date
+            .perform(ViewActions.typeText("Date")) // Invalid date
 
         // Confirm the dialog
         Espresso.onView(ViewMatchers.withText("Add Birthday"))
             .perform(ViewActions.click())
 
-        // Verify that a Snackbar message is displayed
-        Espresso.onView(ViewMatchers.withText("Please input correct date"))
+        // Verify that no Snackbar message is displayed for an invalid date
+        Espresso.onView(ViewMatchers.withText("Please choose the date"))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
-
