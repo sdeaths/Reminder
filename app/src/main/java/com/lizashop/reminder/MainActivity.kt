@@ -1,17 +1,15 @@
 package com.lizashop.reminder
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.lizashop.reminder.databinding.ActivityMainBinding
 import com.lizashop.reminder.databinding.DialogAddingGiftBinding
-import java.text.MessageFormat
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,12 +46,12 @@ class MainActivity : AppCompatActivity() {
                 .setTitle("Adding Birthday")
                 .setView(dialogBinding.root)
                 .setPositiveButton("Add Birthday") { dialog, _ ->
-                    if (dialogBinding.dateTextButton.text != "Choose Date") {
+                    if (isDateValid(dialogBinding.dateEditText.text.toString())) {
                         birthdayList.add(
                             BirthdayItem(
                                 id = id++,
                                 friendName = dialogBinding.friendNameEditText.text.toString(),
-                                date = dialogBinding.dateTextButton.text.toString()
+                                date = dialogBinding.dateEditText.text.toString()
                             )
                         )
                         Snackbar.make(
@@ -61,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                             "Birthday successfully added",
                             Snackbar.LENGTH_LONG
                         ).show()
+                        dialog.dismiss()
                     } else {
                         Snackbar.make(
                             it,
@@ -75,5 +74,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 .show()
         }
+    }
+
+    fun isDateValid(dateString: String): Boolean {
+        val regex = """^\d{2}-\d{2}-\d{4}$"""
+        val pattern = Pattern.compile(regex)
+        val matcher = pattern.matcher(dateString)
+        return matcher.matches()
     }
 }
